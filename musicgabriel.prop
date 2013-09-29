@@ -4,7 +4,8 @@
       "description": "joue les musiques de  gabriel",
       "version" : "1.0",
       "prenom"  : "gabriel",
-      "answers" : "pret | a toi de chanter "
+      "answers" : "pret | a toi de chanter ",
+      "path"    : "X:/_enfant/chanson gaby 2/"
     }
   }
 }

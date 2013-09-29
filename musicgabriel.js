@@ -1,13 +1,15 @@
 ﻿
-var path='X:/_enfant/chanson gaby 2/';  
+// cette variable doit resté en dehaors pour pourvoir etre entre differente session et que le stop fonctionne
 var lasttitre;
 
 exports.action = function(data, callback, config, SARAH){
     var fs  = require('fs'); 
 	console.log("lancement de music Gabriel");
 	var config = config.modules.musicgabriel;
+    var path = config.path;
     var answers = config.answers;
     var titre = "";
+    
 
     // les fonctions doivent etre définies avant les appels
 
@@ -32,7 +34,7 @@ exports.action = function(data, callback, config, SARAH){
             
             var nombre_histoire_play = 0;
             for( var i in directoryObject) {
-                nombre_histoire_play = nombre_histoire_play + 1;
+                nombre_histoire_play = nombre_histoire_play + 1; 
                 if(nombre_histoire_play == histoire_selectione) {
                     titre = directoryObject[i];
                     console.log("music Gabriel : titre :" + titre);
