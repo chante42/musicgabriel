@@ -1,0 +1,20 @@
+<grammar version="1.0" xml:lang="fr-FR" mode="voice" root="ruleMusicGabriel" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+  <rule id="ruleMusicGabriel" scope="public">
+    <example>Sarah music gabriel</example>
+    <tag>out.action=new Object(); </tag>
+    
+    <item>sarah</item>
+    
+    <one-of>
+	  <item>music gabriel<tag>out.action.titredemande="aleatoire"</tag></item>
+	  <item>music gabriel bastenaille<tag>out.action.titredemande="basteaille"</tag></item>
+	  <item>music gabriel y en a assez<tag>out.action.titredemande="y en a assez"</tag></item>
+    <item>music gabriel la marseillaise<tag>out.action.titredemande="la marseillaise"</tag></item>
+	  <item>music gabriel stop<tag>out.action.titredemande="stop"</tag></item>
+	  <item>music gabriel suivant<tag>out.action.titredemande="suivant"</tag></item>
+    </one-of>
+
+    <tag>out.action._attributes.uri="http://127.0.0.1:8080/sarah/musicgabriel";</tag>
+  </rule> 
+</grammar>
+ 

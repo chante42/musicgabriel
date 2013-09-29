@@ -1,0 +1,9 @@
+.plugin-gridster.musicgabriel .front {
+  background: #FFFFFF url('images/musicgabriel.jpg') center 25px;
+  background-size:   150px 150px;
+  background-repeat: no-repeat;
+}
+
+.plugin-gridster.musicgabriel .back {
+  background: #FFFFFF;
+}

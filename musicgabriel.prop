@@ -1,0 +1,10 @@
+{
+  "modules" : { 
+    "musicgabriel"  : {
+      "description": "joue les musiques de  gabriel",
+      "version" : "1.0",
+      "prenom"  : "gabriel",
+      "answers" : "pret | a toi de chanter "
+    }
+  }
+}
