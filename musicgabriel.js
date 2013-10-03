@@ -24,23 +24,16 @@ exports.action = function(data, callback, config, SARAH){
 
 
         fs.readdir(path,function(error,directoryObject)   { 
-            var nombre_histoire = 0;   
-            for( var i in directoryObject){
-                nombre_histoire = nombre_histoire + 1;
-                //console.log(directoryObject[i]);
-            }
-             
-            histoire_selectione = Math.floor((Math.random()*nombre_histoire)+1);
-            
-            var nombre_histoire_play = 0;
-            for( var i in directoryObject) {
-                nombre_histoire_play = nombre_histoire_play + 1; 
-                if(nombre_histoire_play == histoire_selectione) {
-                    titre = directoryObject[i];
-                    console.log("music Gabriel : titre :" + titre);
-                }
-            }
+            nombre_histoire=directoryObject.length;
 
+            do {
+                histoire_selectione = Math.floor((Math.random()*nombre_histoire)+1);
+                
+                titre = directoryObject[histoire_selectione];
+            } while (titre === lasttitre);
+
+           
+            
             
             playMusic(answer, titre, callback, function() {
                 console.log("music Gabriel : callback play");
@@ -58,7 +51,7 @@ exports.action = function(data, callback, config, SARAH){
         tmp = titre
         tmp = tmp.replace(".mp3", "");
         tmp = tmp.replace(/^[0-9]*/g, "");
-        console.log('titre = ' + tmp);
+        console.log("music Gabriel :titre = "  + tmp);
         answer = answer + tmp; 
         
 
@@ -76,26 +69,36 @@ exports.action = function(data, callback, config, SARAH){
 	} 
   	
     if (data.titredemande == 'suivant') {
-        console.log("music Gabriel : suivant");
-        SARAH.pause(path+ lasttitre);
-        choixMusic(callback, function() {});
+        if (lasttitre !== undefined) {
+            console.log("music Gabriel : suivant");
+            SARAH.pause(path+ lasttitre);
+            choixMusic(callback, function() {});
+        } else {
+            console.log("music Gabriel : je ne connais pas la chanson précédente"});
+            callback({'tts':'suivant : je ne connais pas la chanson précédente'});
+        }
         return;
     } 
     
-    else if (data.titredemande == 'stop') {
-        console.log("music Gabriel : stop");
-        SARAH.pause(path+ lasttitre);
-        callback({'tts':'stop'});
+    else if (data.titredemande === 'stop') {
+        if (lasttitre !== undefined) {
+            console.log("music Gabriel : stop");
+            SARAH.pause(path+ lasttitre);
+            callback({'tts':'stop'});
+        } else {
+            console.log("music Gabriel : je ne connais pas la chanson précédente"});
+            callback({'tts':'stop : je ne connais pas la chanson précédente'}) 
+        }    
         return;
     }
-    else if (data.titredemande == 'y en a assez') {
+    else if (data.titredemande === 'y en a assez') {
         titre = "les enfantastiques - y en a assez.mp3";
         answer = "vous avez demandez :";
 
         playMusic(answer, titre, callback, function() {
         });
     }
-    else if (data.titredemande == 'la marseillaise') {
+    else if (data.titredemande === 'la marseillaise') {
         titre = "la_marseillaise.mp3";
         answer = "vous avez demandez :";
 
@@ -103,11 +106,13 @@ exports.action = function(data, callback, config, SARAH){
         });
     }
     
-    else if (data.titredemande == 'aleatoire') {
+    else if (data.titredemande === 'aleatoire') {
         console.log("music Gabriel : aléatoire");
         choixMusic(callback, function() {});
     }  
-
+    else {
+        callback("tts:je n'est pas compris la commande")
+    }
     
 }
 
