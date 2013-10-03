@@ -12,6 +12,7 @@
     <item>music gabriel la marseillaise<tag>out.action.titredemande="la marseillaise"</tag></item>
 	  <item>music gabriel stop<tag>out.action.titredemande="stop"</tag></item>
 	  <item>music gabriel suivant<tag>out.action.titredemande="suivant"</tag></item>
+    <item>music gabriel répète<tag>out.action.titredemande="repete"</tag></item>
     </one-of>
 
     <tag>out.action._attributes.uri="http://127.0.0.1:8080/sarah/musicgabriel";</tag>
