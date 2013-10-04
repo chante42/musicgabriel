@@ -7,16 +7,15 @@ OBJECTIF :
 	Permettre de piloter la musique de mon fils la voix.
 
 Fonctionnel :
-	<sarah> music gabriel
+	"sarah" music gabriel
 		Choisis une musique partie celle du repertoire configuré
-	<sarah> music gabriel stop
+	"sarah" music gabriel stop
 		Arrêt la musique en cours
-	<sarah> music gabriel suivant
+	"sarah" music gabriel suivant
 		Arrêt la musique en cours, et choisis une musique au hazard	
-
+	"sarah" music gabriel  répète
+		Repete la derniere music (last titre)
 TODO
-- music gabriel repete : 
-	Repete la derniere music (last titre)
 - music gabriel 3 chanson/titre
 - music gabriel 10 mn
 - Avoir plusieurs repertoire séparer par des ";" dans config.path
