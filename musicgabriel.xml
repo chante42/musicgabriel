@@ -22,7 +22,7 @@
         <item>y en a assez<tag>out.action.titredemande="y en a assez"</tag></item>
         <item>la marseillaise<tag>out.action.titredemande="la marseillaise"</tag></item>
       
-        <item>cinq titre<tag>out.action.titredemande="enchaineTitre"</tag></item>
+        <item>cinq titre<tag>out.action.titredemande="enchaineTitre";out.action.titreNb="5"</tag></item>
         
     </one-of>
 

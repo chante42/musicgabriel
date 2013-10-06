@@ -1,6 +1,11 @@
 ﻿
 // cette variable doit resté en dehaors pour pourvoir etre entre differente session et que le stop fonctionne
-var lasttitre;
+var lastTitre;
+var nbTitreLu;
+var nbTitreALire;
+var tempsLu;
+var tempALire;
+
 
 exports.action = function(data, callback, config, SARAH){
     var fs  = require('fs'); 
@@ -35,7 +40,7 @@ exports.action = function(data, callback, config, SARAH){
                 histoire_selectione = Math.floor((Math.random()*nombre_histoire)+1);
                 
                 titre = directoryObject[histoire_selectione];
-            } while (titre === lasttitre);
+            } while (titre === lastTitre);
            
             playMusic(answer, titre, callback, function() {
                 mylog("callback play");
@@ -47,7 +52,7 @@ exports.action = function(data, callback, config, SARAH){
     // function : playMusic
     //
     var playMusic = function(answer, titre, callback, cb ) { 
-        lasttitre = titre;
+        lastTitre = titre;
 
         // nettoie le titre de ce qui ne se dit pas
         tmp = titre
@@ -63,11 +68,21 @@ exports.action = function(data, callback, config, SARAH){
     }   
     
     // 
-    // function : erreurLastTitre
+    // function : erreurlastTitre
     //
-    var erreurLastTitre = function(cmd, callback, cb ) {
+    var erreurlastTitre = function(cmd, callback, cb ) {
         mylog(" " +cmd +" -> je ne connais pas la chanson precedente");
         callback({'tts': 'je ne connais pas la chanson précédente'});
+    }
+
+    var testfct = function(path, callback, cb) {
+        var execFile = require('child_process').execFile;
+        
+        //execFile('dir', path , function(err, stdout, stderr) {
+            //var file_list = stdout.split('\n');
+            /* now you've got a list with full path file names */  
+        //    console.log(file_list);
+        //}
     }
 
 
@@ -81,37 +96,37 @@ exports.action = function(data, callback, config, SARAH){
 	} 
   	
     if (data.titredemande == 'suivant') {
-        if (lasttitre !== undefined) {
+        if (lastTitre !== undefined) {
             mylog(" suivant");
-            SARAH.pause(path+ lasttitre);
+            SARAH.pause(path+ lastTitre);
             choixMusic(callback, function() {});
         } else {
-            erreurLastTitre(data.titredemande ,callback);
+            erreurlastTitre(data.titredemande ,callback);
         }
         return;
     } 
     else if (data.titredemande == 'repete') {
-        if (lasttitre !== undefined) {
-            titre = lasttitre;
+        if (lastTitre !== undefined) {
+            titre = lastTitre;
             mylog(" repete");
-            SARAH.pause(path+ lasttitre);
+            SARAH.pause(path+ lastTitre);
             answer = "je répète :";
 
             playMusic(answer, titre, callback, function() {
             });
         } else {
-            erreurLastTitre(data.titredemande ,callback);
+            erreurlastTitre(data.titredemande ,callback);
         }
         return;
     } 
     
     else if (data.titredemande === 'stop') {
-        if (lasttitre !== undefined) {
+        if (lastTitre !== undefined) {
             mylog(" stop");
-            SARAH.pause(path+ lasttitre);
+            SARAH.pause(path+ lastTitre);
             callback({'tts':'stop'});
         } else {
-            erreurLastTitre(data.titredemande ,callback);
+            erreurlastTitre(data.titredemande ,callback);
         }    
         return; 
     }
@@ -133,6 +148,21 @@ exports.action = function(data, callback, config, SARAH){
     else if (data.titredemande === 'aleatoire') {
         mylog(" aléatoire");
         choixMusic(callback, function() {});
+    }  
+    else if (data.titredemande === 'test') {
+        mylog(" test");
+        testfct(path);
+        callback("");
+    }  
+    else if (data.titredemande === 'enchaineTitre') {
+        if (data.titreNb) {
+            mylog(" enchaineTitre = "+data.titreNb);
+        }
+        else {
+         mylog(" enchaineTitre");   
+        }
+        
+        callback("");
     }  
     else {
         callback("tts:je n'est pas compris la commande")
