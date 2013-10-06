@@ -51,7 +51,7 @@ exports.action = function(data, callback, config, SARAH){
     // 
     // function : playMusic
     //
-    var playMusic = function(answer, titre, callback, cb ) { 
+    var playMusic = function(answer, titre ) { 
         lastTitre = titre;
 
         // nettoie le titre de ce qui ne se dit pas
@@ -65,6 +65,7 @@ exports.action = function(data, callback, config, SARAH){
         callback({'tts': answer});
         
         SARAH.play(path+ titre);     
+        
     }   
     
     // 
@@ -112,8 +113,7 @@ exports.action = function(data, callback, config, SARAH){
             SARAH.pause(path+ lastTitre);
             answer = "je répète :";
 
-            playMusic(answer, titre, callback, function() {
-            });
+            playMusic(answer, titre, callback);
         } else {
             erreurlastTitre(data.titredemande ,callback);
         }
@@ -134,15 +134,13 @@ exports.action = function(data, callback, config, SARAH){
         titre = "les enfantastiques - y en a assez.mp3";
         answer = "vous avez demandez :";
 
-        playMusic(answer, titre, callback, function() {
-        });
+        playMusic(answer, titre, callback);
     }
     else if (data.titredemande === 'la marseillaise') {
         titre = "la_marseillaise.mp3";
         answer = "vous avez demandez :";
 
-        playMusic(answer, titre, callback, function() {
-        });
+        playMusic(answer, titre, callback);
     }
     
     else if (data.titredemande === 'aleatoire') {
@@ -151,7 +149,7 @@ exports.action = function(data, callback, config, SARAH){
     }  
     else if (data.titredemande === 'test') {
         mylog(" test");
-        testfct(path);
+        testfct(path); 
         callback("");
     }  
     else if (data.titredemande === 'enchaineTitre') {
@@ -159,10 +157,10 @@ exports.action = function(data, callback, config, SARAH){
             mylog(" enchaineTitre = "+data.titreNb);
         }
         else {
-         mylog(" enchaineTitre");   
+            mylog(" enchaineTitre");   
         }
-        
-        callback("");
+
+        callback("tts:enchaineé "+data.titreNb);
     }  
     else {
         callback("tts:je n'est pas compris la commande")

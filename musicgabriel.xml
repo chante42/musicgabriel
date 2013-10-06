@@ -22,10 +22,29 @@
         <item>y en a assez<tag>out.action.titredemande="y en a assez"</tag></item>
         <item>la marseillaise<tag>out.action.titredemande="la marseillaise"</tag></item>
       
-        <item>cinq titre<tag>out.action.titredemande="enchaineTitre";out.action.titreNb="5"</tag></item>
-        
+        <item repeat="0-1">
+          <one-of>
+            <item>un      <tag>out.action.titredemande="enchaineTitre";out.action.titreNb="1"</tag></item>
+            <item>une     <tag>out.action.titredemande="enchaineTitre";out.action.titreNb="1"</tag></item>
+            <item>deux    <tag>out.action.titredemande="enchaineTitre";out.action.titreNb="2"</tag></item>
+            <item>trois   <tag>out.action.titredemande="enchaineTitre";out.action.titreNb="3"</tag></item>
+            <item>quatre  <tag>out.action.titredemande="enchaineTitre";out.action.titreNb="4"</tag></item>
+            <item>cinq    <tag>out.action.titredemande="enchaineTitre";out.action.titreNb="5"</tag></item>
+            <item>six     <tag>out.action.titredemande="enchaineTitre";out.action.titreNb="6"</tag></item>
+            <item>sept    <tag>out.action.titredemande="enchaineTitre";out.action.titreNb="7"</tag></item>
+            <item>huit    <tag>out.action.titredemande="enchaineTitre";out.action.titreNb="8"</tag></item>
+            <item>neuf    <tag>out.action.titredemande="enchaineTitre";out.action.titreNb="9"</tag></item>
+          </one-of>
+        </item> 
     </one-of>
 
+    <item repeat="0-1">
+       <one-of>
+        <item>titres</item>
+        <item>chansons</item>
+       </one-of> 
+    </item>
+   
     <tag>out.action._attributes.uri="http://127.0.0.1:8080/sarah/musicgabriel";</tag>
   </rule> 
 </grammar>
