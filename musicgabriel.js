@@ -96,74 +96,93 @@ exports.action = function(data, callback, config, SARAH){
 		return;
 	} 
   	
-    if (data.titredemande == 'suivant') {
-        if (lastTitre !== undefined) {
-            mylog(" suivant");
-            SARAH.pause(path+ lastTitre);
+    switch(data.titredemande) {
+
+        // passer a la chanson suivante
+        case 'suivant' :
+            if (lastTitre !== undefined) {
+                mylog(" suivant");
+                SARAH.pause(path+ lastTitre);
+                choixMusic(callback, function() {});
+            } else {
+                erreurlastTitre(data.titredemande ,callback);
+            }
+            return;
+        break;
+    
+        // repete la derniere chanson
+        case 'repete' :
+            if (lastTitre !== undefined) {
+                titre = lastTitre;
+                mylog(" repete");
+                SARAH.pause(path+ lastTitre);
+                answer = "je répète :";
+
+                playMusic(answer, titre, callback);
+            } else {
+                erreurlastTitre(data.titredemande ,callback);
+            }
+            return;
+        break;
+ 
+        // arrête la chanson courante
+        case 'stop' :
+            if (lastTitre !== undefined) {
+                mylog(" stop");
+                SARAH.pause(path+ lastTitre);
+                callback({'tts':'stop'});
+            } else {
+                erreurlastTitre(data.titredemande ,callback);
+            }    
+            return; 
+        break;
+
+        // la façon de lancer la musique par défaut, en choisissant le titre de façon aléatoire dans les répertoires paramétrés
+        case 'aleatoire' :
+            mylog(" aléatoire");
             choixMusic(callback, function() {});
-        } else {
-            erreurlastTitre(data.titredemande ,callback);
-        }
-        return;
-    } 
-    else if (data.titredemande == 'repete') {
-        if (lastTitre !== undefined) {
-            titre = lastTitre;
-            mylog(" repete");
-            SARAH.pause(path+ lastTitre);
-            answer = "je répète :";
+        break;
+    
+        // pour test de fonction
+        case 'test' :
+            mylog(" test");
+            testfct(path); 
+            callback("");
+        break;
+     
+        // Gestion des demande de plusieurs titres d'affillés
+        case 'enchaineTitre':
+            if (data.titreNb) {
+                mylog(" enchaineTitre = "+data.titreNb);
+            }
+            else {
+                mylog(" enchaineTitre");   
+            }
+
+            callback({"tts":"enchaineé "+data.titreNb});
+        break;
+    
+        /* 
+        ** A Partir d'ici mettre les racourcis directement vers une chanson
+        */
+        // chanson : y en a assez
+        case 'y en a assez' :
+            titre = "les enfantastiques - y en a assez.mp3";
+            answer = "vous avez demandez :";
 
             playMusic(answer, titre, callback);
-        } else {
-            erreurlastTitre(data.titredemande ,callback);
-        }
-        return;
-    } 
-    
-    else if (data.titredemande === 'stop') {
-        if (lastTitre !== undefined) {
-            mylog(" stop");
-            SARAH.pause(path+ lastTitre);
-            callback({'tts':'stop'});
-        } else {
-            erreurlastTitre(data.titredemande ,callback);
-        }    
-        return; 
-    }
-    else if (data.titredemande === 'y en a assez') {
-        titre = "les enfantastiques - y en a assez.mp3";
-        answer = "vous avez demandez :";
+        break;
 
-        playMusic(answer, titre, callback);
-    }
-    else if (data.titredemande === 'la marseillaise') {
-        titre = "la_marseillaise.mp3";
-        answer = "vous avez demandez :";
+        case 'la marseillaise' :
+            titre = "la_marseillaise.mp3";
+            answer = "vous avez demandez :";
 
-        playMusic(answer, titre, callback);
-    }
-    
-    else if (data.titredemande === 'aleatoire') {
-        mylog(" aléatoire");
-        choixMusic(callback, function() {});
-    }  
-    else if (data.titredemande === 'test') {
-        mylog(" test");
-        testfct(path); 
-        callback("");
-    }  
-    else if (data.titredemande === 'enchaineTitre') {
-        if (data.titreNb) {
-            mylog(" enchaineTitre = "+data.titreNb);
-        }
-        else {
-            mylog(" enchaineTitre");   
-        }
+            playMusic(answer, titre, callback);
+        break
+      
+        default :
+            callback({"tts":"je n'est pas compris la commande"})
 
-        callback("tts:enchaineé "+data.titreNb);
-    }  
-    else {
-        callback("tts:je n'est pas compris la commande")
     }
     
 }

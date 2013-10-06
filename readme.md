@@ -15,6 +15,7 @@ Fonctionnel :
 		Arrêt la musique en cours, et choisis une musique au hazard	
 	-"sarah" music gabriel  répète
 		Repete la derniere music (last titre)
+
 TODO
 - music gabriel 3 chanson/titre
 - music gabriel 10 mn
