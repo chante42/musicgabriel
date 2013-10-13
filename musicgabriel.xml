@@ -21,6 +21,7 @@
         <item>bastenaille<tag>out.action.titredemande="basteaille"</tag></item>
         <item>y en a assez<tag>out.action.titredemande="y en a assez"</tag></item>
         <item>la marseillaise<tag>out.action.titredemande="la marseillaise"</tag></item>
+        <item>flasmob<tag>out.action.titredemande="flashmob"</tag></item>
       
         <item repeat="0-1">
           <one-of>

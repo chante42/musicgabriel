@@ -52,6 +52,10 @@ exports.action = function(data, callback, config, SARAH){
     // function : playMusic
     //
     var playMusic = function(answer, titre ) { 
+        if (lastTitre !== undefined) {
+            SARAH.pause(path+ lastTitre);   
+        }
+        
         lastTitre = titre;
 
         // nettoie le titre de ce qui ne se dit pas
@@ -60,7 +64,7 @@ exports.action = function(data, callback, config, SARAH){
         tmp = tmp.replace(/^[0-9]*/g, "");
         mylog("titre = "  + tmp);
         answer = answer + tmp; 
-
+        
         mylog(answer);
         callback({'tts': answer});
         
@@ -102,7 +106,7 @@ exports.action = function(data, callback, config, SARAH){
         case 'suivant' :
             if (lastTitre !== undefined) {
                 mylog(" suivant");
-                SARAH.pause(path+ lastTitre);
+               
                 choixMusic(callback, function() {});
             } else {
                 erreurlastTitre(data.titredemande ,callback);
@@ -115,7 +119,7 @@ exports.action = function(data, callback, config, SARAH){
             if (lastTitre !== undefined) {
                 titre = lastTitre;
                 mylog(" repete");
-                SARAH.pause(path+ lastTitre);
+                
                 answer = "je répète :";
 
                 playMusic(answer, titre, callback);
@@ -129,7 +133,7 @@ exports.action = function(data, callback, config, SARAH){
         case 'stop' :
             if (lastTitre !== undefined) {
                 mylog(" stop");
-                SARAH.pause(path+ lastTitre);
+                SARAH.pause(path+ lastTitre);  
                 callback({'tts':'stop'});
             } else {
                 erreurlastTitre(data.titredemande ,callback);
@@ -168,6 +172,13 @@ exports.action = function(data, callback, config, SARAH){
         // chanson : y en a assez
         case 'y en a assez' :
             titre = "les enfantastiques - y en a assez.mp3";
+            answer = "vous avez demandez :";
+
+            playMusic(answer, titre, callback);
+        break;
+
+        case 'flashmob' :
+            titre = "flashmob.mp3";
             answer = "vous avez demandez :";
 
             playMusic(answer, titre, callback);
